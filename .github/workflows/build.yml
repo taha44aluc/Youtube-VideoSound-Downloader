@@ -1,0 +1,81 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Build with Maven
+      run: mvn clean package
+
+    - name: Upload EXE as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: YouTubeDownloader-exe
+        path: target/YouTubeDownloader.exe
+
+    - name: Upload JAR as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: YouTubeDownloader-jar
+        path: target/youtube-video-sound-downloader-*.jar
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          target/YouTubeDownloader.exe
+          target/youtube-video-sound-downloader-*.jar
+        generate_release_notes: true
+        body: |
+          ## YouTube Video/Sound Downloader v${{ github.ref_name }}
+          
+          ### 📥 İndirme Seçenekleri:
+          - **YouTubeDownloader.exe** - Windows executable (Java 17+ gerekli)
+          - **youtube-video-sound-downloader-*.jar** - Java JAR dosyası (cross-platform)
+          
+          ### 🚀 Özellikler:
+          - YouTube video indirme (1080p, 720p, 480p, 360p)
+          - YouTube ses indirme (MP3, WAV)
+          - Modern koyu tema arayüz
+          - Gerçek zamanlı progress bar
+          - İndirme hızı göstergesi
+          
+          ### 📋 Gereksinimler:
+          - Java 17 veya üzeri
+          - yt-dlp (otomatik indiriliyor)
+          - FFmpeg (sistem PATH'inde olmalı)
+          
+          ### 🔧 Kurulum:
+          1. Java 17+ yükleyin
+          2. FFmpeg'i indirip PATH'e ekleyin
+          3. YouTubeDownloader.exe'yi çalıştırın
+          
+          ### 🛡️ Güvenlik:
+          Bu yazılım MIT License ile lisanslanmıştır ve açık kaynak kodludur.
+          Antivirüs false positive uyarıları normal olup, güvenle kullanabilirsiniz.
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
