@@ -1,9 +1,5 @@
 # Contributing to YouTube Video/Sound Downloader
 
-## 🤝 Katkıda Bulunma
-
-Bu proje açık kaynak kodludur ve katkılarınızı memnuniyetle karşılıyoruz!
-
 ## 📋 Geliştirme Ortamı
 
 ### Gereksinimler
