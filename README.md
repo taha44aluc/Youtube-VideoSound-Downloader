@@ -117,7 +117,7 @@ MIT License - Detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 ## Sorun Bildirimi
 
-Sorunları [GitHub Issues](https://github.com/yourusername/youtube-downloader/issues) üzerinden bildirebilirsiniz.
+Sorunları [GitHub Issues](https://github.com/taha44aluc/Youtube-VideoSound-Downloader/issues) üzerinden bildirebilirsiniz.
 
 ## Yasal Uyarı
 
