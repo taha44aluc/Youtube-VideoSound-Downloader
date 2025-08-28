@@ -84,11 +84,6 @@ winget install ffmpeg
 Set-AuthenticodeSignature -FilePath "app.exe" -Certificate $cert -TimestampServer "http://timestamp.digicert.com"
 ```
 
-##### 2. EV Code Signing Certificate (Önerilen)
-- Extended Validation sertifikaları daha güvenilir
-- Hemen SmartScreen reputation kazanır
-- Yıllık maliyet: $300-500
-
 ##### 3. Microsoft SmartScreen Reputation
 - Uygulamanızı https://www.microsoft.com/wdsi/submission adresine gönderin
 - False positive bildirimi yapın
@@ -119,14 +114,6 @@ Set-AuthenticodeSignature -FilePath "app.exe" -Certificate $cert -TimestampServe
 ## Lisans
 
 MIT License - Detaylar için [LICENSE](LICENSE) dosyasına bakın.
-
-## Katkı
-
-1. Fork edin
-2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Commit edin (`git commit -m 'Add amazing feature'`)
-4. Push edin (`git push origin feature/amazing-feature`)
-5. Pull Request açın
 
 ## Sorun Bildirimi
 
