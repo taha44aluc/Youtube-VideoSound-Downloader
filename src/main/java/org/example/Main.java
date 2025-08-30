@@ -68,9 +68,27 @@ public class Main extends Application {
 
         // Icon ekle
         try {
-            primaryStage.getIcons().add(new Image(new FileInputStream("src/ico/images.png")));
+            // Önce jar içindeki resource'tan icon yükle
+            Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
+            if (icon != null && !icon.isError()) {
+                primaryStage.getIcons().add(icon);
+            } else {
+                // Alternatif: ico dosyasını dene
+                Image altIcon = new Image("file:src/ico/images.ico");
+                if (altIcon != null && !altIcon.isError()) {
+                    primaryStage.getIcons().add(altIcon);
+                }
+            }
         } catch (Exception e) {
-            System.err.println("Icon yüklenemedi: " + e.getMessage());
+            // Son çare: dosya sisteminden yükle
+            try {
+                File iconFile = new File("src/ico/images.ico");
+                if (iconFile.exists()) {
+                    primaryStage.getIcons().add(new Image(iconFile.toURI().toString()));
+                }
+            } catch (Exception ex) {
+                System.err.println("Hiçbir icon yüklenemedi: " + ex.getMessage());
+            }
         }
 
         VBox root = new VBox(15);
